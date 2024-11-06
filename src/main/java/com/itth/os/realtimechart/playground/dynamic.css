@@ -1,0 +1,4 @@
+.chart-bar-plot .chart-series-bar .chart-bar {
+    -fx-min-width: 1px;
+    -fx-max-width: 100px;
+}

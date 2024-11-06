@@ -1,0 +1,53 @@
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+}
+
+.chart-plot-background {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    -fx-border-color: #c4c4c4;
+}
+
+.rectangle {
+    -fx-fill: linear-gradient(to bottom, rgba(255, 255, 255, 0.61), rgba(215, 226, 255, 0.55));
+    -fx-stroke: #c0c0c0;
+    -fx-stroke-width: 1px;
+}
+
+.spawn {
+    -fx-fill: linear-gradient(to bottom, rgba(255, 255, 255, 0.61), rgba(215, 226, 255, 0.55));
+    -fx-stroke: rgba(255, 0, 0, 0.71);
+    -fx-stroke-width: 1px;
+}
+
+.chart-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.axis-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+}
+
+/*.axis-tick-label {*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-text-fill: #666666;*/
+/*}*/
+
+/*.axis-tick-mark {*/
+/*    visibility: hidden;*/
+/*}*/
+
+/*.axis-minor-tick-mark {*/
+/*    visibility: hidden;*/
+/*}*/
+
+.chart-symbol {
+    -fx-background-color: #1f77b4, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}

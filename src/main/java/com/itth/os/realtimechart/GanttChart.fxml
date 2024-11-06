@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Scene?>
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="com.itth.os.realtimechart.GanttChart">
+    <root>
+        <AnchorPane fx:id="anchorPane">
+            <stylesheets>
+                <URL value="@chart.css"/>
+            </stylesheets>
+            <children>
+                <StackPane fx:id="stackPane" prefHeight="438.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+            </children>
+        </AnchorPane>
+    </root>
+</Scene>
