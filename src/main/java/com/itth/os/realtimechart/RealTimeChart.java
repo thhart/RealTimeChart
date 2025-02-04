@@ -1,21 +1,37 @@
 package com.itth.os.realtimechart;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
+
 import com.google.common.collect.EvictingQueue;
 import com.google.common.util.concurrent.RateLimiter;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.chart.*;
-import javafx.scene.chart.XYChart.*;
-import javafx.scene.layout.*;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RealTimeChart {
 	protected final static Logger logger = LogManager.getLogger(GanttChart.class);
@@ -106,7 +122,8 @@ public class RealTimeChart {
 		chart.setTitle("Time Chart");
 		chart.setAnimated(false);
 		chart.setCreateSymbols(false);
-		//chart.getData().add(series);
+		// chart.setOpacity(0.75);
+		// chart.getData().add(series);
 
 		//chart.setOnMouseEntered(event -> chart.getScene().getWindow().setOpacity(1));
 		//chart.setOnMouseExited(event -> chart.getScene().getWindow().setOpacity(0.125));
@@ -118,13 +135,26 @@ public class RealTimeChart {
 		});
 
 		chart.setOnMouseDragged(event -> {
-			if (dragging) {
+			if (dragging && event.isPrimaryButtonDown()) {
 				double deltaX = event.getX() - lastX;
 				double xScale = chart.getXAxis().getScaleX();
 				deltaValue = deltaLast + deltaX / xScale * 100;
 				deltaValue = Math.min(limitUpper - limitLower - visibleTimeWindow + 1000, deltaValue);
 				deltaValue = Math.max(-1000, deltaValue);
-			}
+			} else {
+				// change window position to mouse
+				chart.getScene().getWindow().setX(event.getScreenX());
+				chart.getScene().getWindow().setY(event.getScreenY());
+				// save the position to java user preferences
+				final Preferences preferences = Preferences.userNodeForPackage(RealTimeChart.class);
+				preferences.putLong("window.x", (long) event.getScreenX());
+				preferences.putLong("window.y", (long) event.getScreenY());
+                try {
+                    preferences.flush();
+                } catch (BackingStoreException e) {
+                    logger.error(e, e);
+                }
+            }
 		});
 
 		chart.setOnMouseReleased(event -> {

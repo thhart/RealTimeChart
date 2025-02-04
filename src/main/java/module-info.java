@@ -6,6 +6,7 @@ module com.itth.os.realtimechart {
 	requires javafx.swing;
 	requires org.apache.logging.log4j;
 	requires org.apache.commons.collections4;
-	exports com.itth.os.realtimechart;
+    requires java.prefs;
+    exports com.itth.os.realtimechart;
 	exports com.itth.os.realtimechart.playground;
 }
